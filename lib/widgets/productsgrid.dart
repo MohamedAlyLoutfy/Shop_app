@@ -12,11 +12,14 @@ ProductsGrid(this.showfavs);
   Widget build(BuildContext context) {
     final productsData=Provider.of<Products> (context);
     final products=showfavs?productsData.favoriteItems: productsData.items;
+    
+    
     return GridView.builder(
       padding:const EdgeInsets.all(10.0),
       itemCount: products.length,
       itemBuilder: (ctx,i)=>ChangeNotifierProvider.value(
         //create: (c)=> products[i] ,
+        
         value:products[i] ,
         child: ProductItem(
        // products[i].id,
