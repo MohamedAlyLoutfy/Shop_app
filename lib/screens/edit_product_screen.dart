@@ -37,8 +37,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
     super.dispose();
   }
   void _updateImageUrl(){
+    
     //when lose focus on text field of imgurl show the img
     if(!_imageUrlFocusNode.hasFocus){
+      //if not valid don't show anything
+      if(
+      (!_imageUrlController.text.startsWith('http')&&
+      !_imageUrlController.text.startsWith('https'))||
+      (!_imageUrlController.text.endsWith('.png')&&
+      !_imageUrlController.text.endsWith('jpg')&&
+      !_imageUrlController.text.endsWith('jpeg')
+      )
+      ){return;}
       setState(() {
         
       });
@@ -106,6 +116,21 @@ class _EditProductScreenState extends State<EditProductScreen> {
                onFieldSubmitted: (_){
                 FocusScope.of(context).requestFocus(_descriptionFocusNode);
               },
+              validator:(value){
+                if (value.isEmpty){
+                  return 'please enter a price.';
+
+                }
+                if(double.tryParse(value)==null){
+                  return 'please enter a valid number';
+                }
+                if(double.parse(value)<=0){
+                  return 'please a number greater than zero';
+
+                }
+                return null;
+
+              } ,
                 onSaved: (value){
                 _editProduct=Product(
                 id: null,
@@ -122,6 +147,16 @@ class _EditProductScreenState extends State<EditProductScreen> {
               maxLines: 3, 
               keyboardType: TextInputType.multiline,
               focusNode: _descriptionFocusNode,
+              validator: (value){
+                if(value.isEmpty){
+                  return 'Please enter description';
+
+                }
+                if(value.length<10){
+                  return 'Should be at least 10 characters long';
+                }
+                return null;
+              },
                 onSaved: (value){
                 _editProduct=Product(
                 id: null,
@@ -167,7 +202,20 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               onFieldSubmitted: (_){
                                 _saveForm();
                               },
-                               onSaved: (value){
+                validator: (value){
+                  if(value.isEmpty){
+                    return 'Please  enter an img URL';
+                  }
+                  if(!value.startsWith('http') && !value.startsWith('https')){
+                    return 'Please enter a vaild URL';
+                  }
+                  if(!value.endsWith('.png')&&!value.endsWith('jpg')&&!value.endsWith('jpeg')){
+                    return 'Please enter a valid img URL';
+                  }
+
+                  return null;
+                },
+                onSaved: (value){
                 _editProduct=Product(
                 id: null,
                 title: _editProduct.title,
