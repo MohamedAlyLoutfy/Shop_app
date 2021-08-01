@@ -88,6 +88,9 @@ class Products with ChangeNotifier{
 
 
 
+       }).catchError((error){
+         throw(error);
+         
        });
  
   }
