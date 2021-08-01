@@ -101,11 +101,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
       _isLoading=true;
     });
     if(_editProduct.id!=null){
-      Provider.of<Products>(context,listen: false).updateProduct(_editProduct.id,_editProduct);
-      setState(() {
-        _isLoading=false;
-      });
-      Navigator.of(context).pop();
+     await Provider.of<Products>(context,listen: false).updateProduct(_editProduct.id,_editProduct);
+     
+     
 
     }else{
       try {
@@ -114,7 +112,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
       }
       catch (error){
-      await  showDialog<Null>(context: context,
+       await showDialog<Null>(context: context,
      builder: (ctx)=> AlertDialog(
        title:Text('An error ocurred'),
        content: Text('Something went wron'),
@@ -132,17 +130,21 @@ class _EditProductScreenState extends State<EditProductScreen> {
      );
 
       }
-      finally{
-          setState(() {
-       _isLoading=false;
-     });
-     Navigator.of(context).pop();
+    //   finally{
+    //       setState(() {
+    //    _isLoading=false;
+    //  });
+    //  Navigator.of(context).pop();
 
-      }
+    //   }
 
    
    
     }
+     setState(() {
+        _isLoading=false;
+      });
+      Navigator.of(context).pop();
     //Navigator.of(context).pop();
   
 
