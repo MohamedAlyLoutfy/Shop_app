@@ -56,7 +56,7 @@ class Auth with ChangeNotifier{
 
       notifyListeners();  
       final prefs=await SharedPreferences.getInstance();
-      final userData=json.encode({'token':_token,'userId':_userId,'expireyDate':_expiryDate.toIso8601String()});
+      final userData=json.encode({'token':_token,'userId':_userId,'expiryDate':_expiryDate.toIso8601String()});
       prefs.setString('userData',userData);
     }catch(error){
       throw error;
@@ -78,7 +78,7 @@ class Auth with ChangeNotifier{
   }
   Future <bool> tryAutoLogin() async {
     final prefs=await SharedPreferences.getInstance();
-    if(!prefs.containsKey('userDate')){
+    if(!prefs.containsKey('userData')){
       return false;
     }
     final extractedUserData = json.decode(prefs.getString('userData')) as Map<String, Object>;
