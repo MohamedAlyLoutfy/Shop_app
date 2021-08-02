@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/providers/product.dart';
 import 'package:flutter_complete_guide/widgets/product_item.dart';
 import './screens/products_overview_screen.dart';
 import './screens/product_detail_screen.dart';
@@ -23,8 +24,15 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider(
       create: (ctx)=>Auth(),
       ),
-      ChangeNotifierProvider(
-      create: (ctx)=>Products(),
+      ChangeNotifierProxyProvider<Auth,Products>
+      (
+      update: (ctx,auth,previousProducts)=>Products(
+        auth.token,
+        previousProducts==null? []:previousProducts.items,
+
+        
+        ),
+      //create: (_)=>Products(),
       ),
       ChangeNotifierProvider(
       create: (ctx)=>Cart(),),

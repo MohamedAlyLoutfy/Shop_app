@@ -39,6 +39,8 @@ class Products with ChangeNotifier{
     // ),
   ];
  //var _showFavoritesOnly=false;
+ final String authToken;
+ Products(this.authToken, this._items);
 
 
   List<Product> get items{
@@ -62,7 +64,7 @@ class Products with ChangeNotifier{
    // notifyListeners();
   //}
   Future<void> fetchAndSetProducts() async{
-    const url='https://flutter-update-43761-default-rtdb.firebaseio.com/products.json';
+    final url='https://flutter-update-43761-default-rtdb.firebaseio.com/products.json?auth=$authToken';
     try{
     final response =await http.get(Uri.parse(url));
     final extractedData=json.decode(response.body) as Map<String,dynamic>;
