@@ -38,6 +38,8 @@ class AppDrawer  extends StatelessWidget {
               title:Text('Manage Products') ,
               onTap: (){
                 Navigator.of(context).pushReplacementNamed(UserProductsScreen.routeName);
+                
+              
               },
 
               ),
@@ -47,6 +49,7 @@ class AppDrawer  extends StatelessWidget {
               title:Text('Logout') ,
               onTap: (){
                 Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed('/');
                 //Navigator.of(context).pushReplacementNamed(UserProductsScreen.routeName);
                Provider.of<Auth>(context,listen: false).logout();
               },
