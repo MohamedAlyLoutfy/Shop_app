@@ -11,13 +11,18 @@ import './screens/orders_screen.dart';
 import './screens/user_products_screen.dart';
 import './screens/edit_product_screen.dart';
 import './screens/auth_screen.dart';
+import './providers/auth.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
+    return MultiProvider(
+      providers: [
+      ChangeNotifierProvider(
+      create: (ctx)=>Auth(),
+      ),
       ChangeNotifierProvider(
       create: (ctx)=>Products(),
       ),
