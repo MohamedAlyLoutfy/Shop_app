@@ -22,11 +22,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-      ChangeNotifierProvider(
-      create: (ctx)=>Auth(),
+      ChangeNotifierProvider.value(
+      value:Auth(),
       ),
       ChangeNotifierProxyProvider<Auth,Products>
       (
+       
       update: (ctx,auth,previousProducts)=>Products(
         auth.token,
         auth.userId,
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
 
       ChangeNotifierProxyProvider<Auth,Orders>
       (
+        
       update: (ctx,auth,previousOrders)=>Orders(
         auth.token,
         auth.userId,
